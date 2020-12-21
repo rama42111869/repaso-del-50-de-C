@@ -1,0 +1,1300 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+#include "pila.h"
+#include <ctype.h>
+
+int carcaracter(char arr[], int val, char dato);
+
+typedef struct
+{
+    int matricula;
+    char nombre[30];
+    char genero; //m, f, o
+} stAlumno;
+
+int main()
+{
+    int n,b;
+    Pila p,d;
+    inicpila(&p);
+    int arr[100],arr2[10]= {1,2,3,4,5,6,7,8,9,10};
+    char arr3[10]= {'a','b','c','d','e','f','g','h','i','j'};
+    int mat[100],f,r;
+    int e,mat2[10][10]= {1,2,3,4,5,6,7,8,9,10};
+    stAlumno arrs[30],nuevo;
+    char c;
+    char control='s';
+    char archivo2[]={"ejercicio4.dat"};
+    printf("Elija uno de los temas de la prueba\n\n");
+    printf("1- Declaracion e inicializacion de variables\n\n");
+    printf("2- Funciones y pasaje de parametros\n\n");
+    printf("3- Punteros\n\n");
+    printf("4- Busqueda de un valor, busqueda de mayor y menor\n\n");
+    printf("5- Insercion de un elemento ordenado\n\n");
+    printf("6- Algoritmo de ordenacion por seleccion e inserción sobre pilas y arreglos\n\n");
+    printf("7- Funciones de manejo de strings. Sus parametros, retorno y utilizacion\n\n");
+    printf("8- Matrices y pasaje de parametros\n\n");
+    printf("9- Estructuras\n\n");
+    printf("10- Archivos\n\n");
+    fflush(stdin);
+    scanf("%d",&n);
+    switch(n)
+    {
+
+///espacio
+
+    case 1:
+        printf("\n\nDeclaracion e inicializacion de variables\n\nCon tipos de datos primitivos: Presione 1\nPila: Presione 2\nArreglo: Presione 3\n\n");
+        fflush(stdin);
+        scanf("%d",&n);
+        switch(n)
+        {
+        case 1:
+            printf("Tipos de datos primitivos\n");
+            char ejemplo='e';
+            int ejem=7;
+            double e=3.12;
+            float f=3.20;
+            printf("\ndato de tipo char %c\t",ejemplo);
+            printf("\ndato de tipo int %d\t",ejem);
+            printf("\ndato de tipo double %f\t",e);
+            printf("\ndato de tipo float %f\t",f);
+            break;
+
+        ///espacio
+
+        case 2:
+            printf("\n\nPilas\n\n");
+            cargarpil();
+            break;
+
+        ///espacio
+
+        case 3:
+            printf("\n\nArreglos\n\n");
+            printf("Cuantos elementos quiere ingresar al arreglo?\t");
+            fflush(stdin);
+            scanf("%d",&b);
+            cargararreglo(arr,b);
+            mostrararreglo(arr,b);
+            break;
+        }
+        break;
+
+///espacio
+
+    case 2:
+        printf("\nFunciones y pasajes de parametros\n\nSumar: Presione 1\n\nCargar: Presione 2\n\nMostrar: Presione 3\n\nContar: Presione 4\n\nPasar: Presione 5\n\n");
+        fflush(stdin);
+        scanf("%d",&n);
+        switch(n)
+        {
+        case 1:
+            sumapila(&p);
+            mostrar(&p);
+            system("pause");
+            system("cls");
+            sumaarreglo(arr2,10);
+            break;
+        case 2:
+            inicpila(&p);
+            cargarpila(&p);
+            mostrar(&p);
+            system("pause");
+            system("cls");
+            printf("Cuantos elementos quiere ingresar al arreglo?\t");
+            fflush(stdin);
+            scanf("%d",&b);
+            cargararreglo(arr,b);
+            mostrararreglo(arr,b);
+            break;
+        case 3:
+            mostrararreglo(arr2,10);
+            break;
+        case 4:
+            mostrararreglo(arr2,10);
+            contarelementos(arr2,10);
+            break;
+        case 5:
+            printf("\nPasar\n\n\n Pila a Pila: Presione 1\n\nArreglo a Pila: Presione 2\n\nPila a arreglo: Presione 3\n\n");
+            fflush(stdin);
+            scanf("%d",&n);
+            switch(n)
+            {
+            case 1:
+                inicpila(&p);
+                inicpila(&d);
+                printf("\nPila a Pila\n");
+                cargarpila(&p);
+                pasardepilaapila(p,&d);
+                printf("\npila origen\n");
+                mostrar(&p);
+                printf("pila destino\n");
+                mostrar(&d);
+                break;
+            case 2:
+                ///sin cargar
+                printf("Como es con un arreglo no cargado?\n\n");
+                inicpila(&p);
+                printf("Cuantos elementos quiere ingresar al arreglo?\t");
+                fflush(stdin);
+                scanf("%d",&b);
+                cargararreglo(arr,b);
+                mostrararreglo(arr,b);
+                pasaje(arr,b,&p);
+                mostrar(&p);
+                system("\npause\n");
+                ///ya cargado
+                printf("Como es con un arreglo que ya esta cargado?\n\n");
+                pasaje(arr2,10,&p);
+                mostrar(&p);
+                break;
+            case 3:
+                inicpila(&p);
+                apilar(&p,1);
+                pasajepila(arr,10,&p);
+                break;
+            }
+            break;
+        }
+        break;
+    case 3:
+        printf("Punteros\n\nIntercambio de 2 int: Presione 1\n\nGenerar pila Ordenada: Presione 2\n\nTrabajar con arreglos: Presione 3\n\n");
+        fflush(stdin);
+        scanf("%d",&n);
+        switch(n)
+        {
+        case 1:
+            printf("\nIntercambio de 2 int\n");
+            intercambio(n,b);
+            break;
+        case 2:
+            printf("\nGenerar pila Ordenada\n");
+            inicpila(&p);
+            cargarpila(&p);
+            mostrar(&p);
+            break;
+        case 3:
+            printf("\nTrabajar con arreglos\n");
+            break;
+        }
+        break;
+    case 4:
+        printf("Busquedas en arreglos: presione 1\n\nBusquedas en pilas: presione 2\n\n");
+        fflush(stdin);
+        scanf("%d",&n);
+        switch(n)
+        {
+        case 1:
+            printf("Busquedas en arreglos\n\nBuscar un elemento: Presione 1\n\nBuscar el menor: Presione 2\n\nBuscar el mayor: Presione 3\n\n");
+            fflush(stdin);
+            scanf("%d",&n);
+            switch(n)
+            {
+            case 1:
+                printf("Buscar un nro: Presione 1\n\nBuscar un caracter: Presione 2\n\n");
+                fflush(stdin);
+                scanf("%d",&n);
+                switch(n)
+                {
+                case 1:
+                    printf("Ingrese el nro que quiere buscar\n");
+                    fflush(stdin);
+                    scanf("%d",&b);
+                    buscarelemento(arr2,10,b);
+                    break;
+                case 2:
+                    printf("Ingrese el caracter que quiere buscar\n");
+                    fflush(stdin);
+                    scanf("%c",&c);
+                    carcaracter(arr3,10,c);
+                    break;
+                }
+                break;
+            case 2:
+                printf("Buscar el menor\n");
+                int val1=buscarnmenor(arr2,0,10);
+                printf("%d",val1);
+                break;
+            case 3:
+                printf("Buscar el mayor\n");
+                int val2=buscarmayor(arr2,0,10);
+                printf("%d",val2);
+                break;
+            }
+            break;
+        case 2:
+            printf("Busquedas en Pilas\n\nBuscar un elemento: Presione 1\n\nBuscar el menor: Presione 2\n\nBuscar el mayor: Presione 3\n\n");
+            fflush(stdin);
+            scanf("%d",&n);
+            switch(n)
+            {
+            case 1:
+                printf("\nBuscar un elemento\n");
+                inicpila(&p);
+                apilar(&p,1);
+                apilar(&p,2);
+                apilar(&p,3);
+            case 2:
+                printf("\nBuscar el menor\n");
+                inicpila(&p);
+                apilar(&p,1);
+                apilar(&p,2);
+                apilar(&p,3);
+                printf("\nmenor elemento:\t");
+                int val3=buscarmenorpila(&p);
+                printf("%d",val3);
+                break;
+            case 3:
+                printf("\nBuscar el mayor\n");
+                inicpila(&p);
+                apilar(&p,1);
+                apilar(&p,2);
+                apilar(&p,3);
+                printf("\nmayor elemento:\t");
+                int val4=buscarmayorpila(&p);
+                printf("%d",val4);
+                break;
+            }
+            break;
+            break;
+        }
+    case 5:
+        printf("Insercion de un elemento conservando el orden en Pilas: Presione 1\n\nInsercion de un elemento conservando el orden en arreglos: Presione 2\n\n");
+        fflush(stdin);
+        scanf("%d",&d);
+        switch(n)
+        {
+        case 1:
+            break;
+        case 2:
+            break;
+        }
+        break;
+    case 6:
+        printf("Ordenamiento por seleccion e insercion en pilas: Presione 1\n\nOrdenamiento por seleccion e insercion en arreglos: Presione 2\n\n");
+        fflush(stdin);
+        scanf("%d",&n);
+        switch(n)
+        {
+        case 1:
+            printf("Ordenamiento por seleccion: Presione 1\n\nOrdenamiento por insercion: Presione 2\n\n");
+            fflush(stdin);
+            scanf("%d",&n);
+            switch(n)
+            {
+            case 1:
+                inicpila(&p);
+                inicpila(&d);
+                cargarpila(&p);
+                ordenaseleccion(&p,&d);
+                mostrar(&p);
+                mostrar(&d);
+                break;
+            case 2:
+                break;
+            }
+            break;
+        case 2:
+            printf("Ordenamiento por seleccion: Presione 1\n\nOrdenamiento por insercion: Presione 2\n\n");
+            fflush(stdin);
+            scanf("%d",&n);
+            switch(n)
+            {
+            case 1:
+                cargararreglorandom(arr,10);
+                mostrararreglo(arr,10);
+                system("pause");
+                ordenaseleccionn(arr,10);
+                mostrararreglo(arr,10);
+                break;
+            case 2:
+                cargararreglorandom(arr,10);
+                mostrararreglo(arr,10);
+                system("pause");
+                ordenainsercion(arr,10);
+                mostrararreglo(arr,10);
+                break;
+            }
+            break;
+        }
+        break;
+    case 7:
+        printf("\nStrings\n\nStrlen(): Presione 1\n\nStrcmp(): Presione 2\n\nStrcmpi():Presione 3\n\nStrcpy():Presione 4\n\n");
+        printf("Strcat(): Presione 5\n\nStrstr(): Presione 6\n\nTolower(): Presione 7\n\nToupper(): Presione 8\n\n");
+        printf("Strcoll(): Presione 9\n\nStrcspn(): Presione 10\n\nStrspn(): Presione 11\n\nStrdup(): Presione 12\n\n");
+        printf("Strchr(): Presione 13\n\nStrrrev(): Presione 14\n\nStrupr(): Presione 15\n\nStrlwr(): Presione 16\n\n");
+        scanf("%d",&n);
+        switch(n)
+        {
+        case 1:
+            printf("Strlen()\n");
+            break;
+        case 2:
+            printf("Strcmp()\n");
+            break;
+        case 3:
+            printf("Strcmpi()\n");
+            break;
+        case 4:
+            printf("Strcpy()\n");
+            break;
+        case 5:
+            printf("Strcat()\n");
+            break;
+        case 6:
+            printf("Strstr()\n");
+            break;
+        case 7:
+            printf("Tolower()\n");
+            break;
+        case 8:
+            printf("Toupper()\n");
+            break;
+        case 9:
+            printf("Strcoll()\n");
+            break;
+        case 10:
+            printf("Strcspn()\n");
+            break;
+        case 11:
+            printf("Strspn()\n");
+            break;
+        case 12:
+            printf("Strdup()\n");
+            break;
+        case 13:
+            printf("Strchr()\n");
+            break;
+        case 14:
+            printf("Strrrev()\n");
+            break;
+        case 15:
+            printf("Strupr()\n");
+            break;
+        case 16:
+            printf("Strlwr()\n");
+            break;
+        }
+        break;
+        case 8:
+            printf("Carga y muestra: Presione 1\n\nSumar el contenido de una matriz: Presione 2\n\nCalcular el promedio: Presione 3\n\nBuscar un elemento en especifico dentro de una matriz: Presione 4\n\n");
+            fflush(stdin);
+            scanf("%d",&n);
+            switch(n)
+            {
+            case 1:
+        printf("elija el nro de filas\n");
+        fflush(stdin);
+        scanf("%d",&f);
+        printf("elija el nro de columnas\n");
+        fflush(stdin);
+        scanf("%d",&r);
+        cargarmatriz(mat,f,r);
+        mostrarmatriz(mat,f,r);
+                break;
+            case 2:
+        printf("elija el nro de filas\n");
+        fflush(stdin);
+        scanf("%d",&f);
+        printf("elija el nro de columnas\n");
+        fflush(stdin);
+        scanf("%d",&r);
+        cargarmatriz(mat,f,r);
+        mostrarmatriz(mat,f,r);
+        sumamatriz(mat,f,r);
+                break;
+            case 3:
+        printf("elija el nro de filas\n");
+        fflush(stdin);
+        scanf("%d",&f);
+        printf("elija el nro de columnas\n");
+        fflush(stdin);
+        scanf("%d",&r);
+        cargarmatriz(mat,f,r);
+        mostrarmatriz(mat,f,r);
+        prom(mat,f,r);
+                break;
+            case 4:
+        printf("ingrese el elemento a buscar\n");
+        fflush(stdin);
+        scanf("%d",&e);
+        buscarelementomatriz(mat2,10,e);
+                break;
+            }
+            case 9:
+                printf("Cargar y mostrar estructura: presione 1\n\nBuscar varios datos de un grupo o individuo: presione 2\n\nOrdenar por seleccion: presione 3\n\nOrdenar por insercion: presione 4\n\nMostrar por un tipo de dato en especifico: presione 5\n\nContar cantidad de grupos con el mismo dato en especifico: presione 6\n\n");
+                fflush(stdin);
+                scanf("%d",&n);
+            switch(n)
+            {
+            case 1:
+        printf("Que cantidad de alumnos va a ingresar? Ingresela por favor\n");
+        fflush(stdin);
+        scanf("%d",&b);
+        int val1=cargarestructura(arrs,b);
+        mostrarestructura(arrs,val1);
+                break;
+            case 2:
+        printf("Que cantidad de alumnos va a ingresar? Ingresela por favor\n");
+        fflush(stdin);
+        scanf("%d",&b);
+        int val3=cargarestructura(arrs,b);
+        busqueda(arrs,val3);
+                break;
+            case 3:
+        printf("Que cantidad de alumnos va a ingresar? Ingresela por favor\n");
+        fflush(stdin);
+        scanf("%d",&b);
+        int val2=cargarestructura(arrs,b);
+        mostrarestructura(arrs,val2);
+        system("pause");
+        ordenaseleccionn2(arrs,val2);
+        mostrarestructura(arrs,val2);
+                break;
+            case 4:
+        printf("Que cantidad de alumnos va a ingresar? Ingresela por favor\n");
+        fflush(stdin);
+        scanf("%d",&b);
+        int val5=cargarestructura(arrs,b);
+        system("pause");
+        printf("ingrese un nuevo nombre\t");
+        fflush(stdin);
+        scanf("%s",&nuevo.nombre);
+        printf("ingrese una nueva matricula\t");
+        fflush(stdin);
+        scanf("%d",&nuevo.matricula);
+        printf("ingrese genero (m/f/o)\t");
+        fflush(stdin);
+        scanf("%c",&nuevo.genero);
+        int val6=insertaRegistroOrdenado(arrs,val5,nuevo);
+        mostrarestructura(arrs,val6);
+                break;
+            case 5:
+        printf("Que cantidad de alumnos va a ingresar? Ingresela por favor\n");
+        fflush(stdin);
+        scanf("%d",&b);
+        int val4=cargarestructura(arrs,b);
+        mostrargeneros(arr,b);
+                break;
+            case 6:
+        printf("Que cantidad de alumnos va a ingresar? Ingresela por favor\n");
+        fflush(stdin);
+        scanf("%d",&b);
+        int val8=cargarestructura(arrs,b);
+        cuentas(arrs,val8);
+                break;
+            }
+            break;
+            case 10:
+            printf("Carga y muestra de archivos: presione 1\n\nMostrar un alumno en especifico: presione 2\n\nPasar de archivo a pila: presione 3\n\nInvertir archivo: presione 4\n\n");
+            fflush(stdin);
+            scanf("%d",&n);
+            switch(n)
+            {
+            case 1:
+            b=cargarestructura(arrs,3);
+            cargaAlumnosConArreglo(archivo2,arrs,b);
+            muestraAlumnos(archivo2);
+                break;
+            case 2:
+                mostrarespecifico(archivo2);
+                break;
+            case 3:
+                pasardearchivoapilas(archivo2,&p);
+                mostrar(&p);
+            break;
+            case 4:
+                inversionararchivo(archivo2);
+                break;
+            }
+        break;
+            break;
+    }
+    return 0;
+}
+void cargarpil()
+{
+    Pila p;
+    char control='s';
+    inicpila(&p);
+    do
+    {
+        leer(&p);
+        printf("desea continuar?s/n\n");
+        fflush(stdin);
+        scanf("%c",&control);
+    }
+    while(control=='s');
+    mostrar(&p);
+}
+///funcion para cargar los elementos de una pila
+void cargarpila(Pila *p)
+{
+    char c='s';
+    do
+    {
+        leer(p);
+        printf("Desea continuar?s/n\n");
+        fflush(stdin);
+        scanf("%c",&c);
+        printf("\n");
+    }
+    while(c=='s');
+}
+
+///funcion para sumar el contenido de una pila
+void sumapila(Pila *p)
+{
+    int num,aux=0;
+    char c='s';
+    do
+    {
+        printf("ingrese un nro\n");
+        fflush(stdin);
+        scanf("%d",&num);
+        apilar(p,num);
+        aux+=num;
+        printf("Desea continuar?s/n");
+        fflush(stdin);
+        scanf("%c",&c);
+        printf("la suma de los elementos es= %d",aux);
+    }
+    while(c=='s');
+}
+
+///funcion para cargar un arreglo
+int cargararreglo(int arr[],int validos)
+{
+    int num,val=0,i=0;
+    for(i; i<validos; i++)
+    {
+        printf("ingrese un nro\t");
+        fflush(stdin);
+        scanf("%d",&num);
+        arr[i]=num;
+        val++;
+    }
+    return val;
+}
+
+///funcion para generar numeros aleratorios
+int random()
+{
+    int a=rand()%10;
+    return a;
+}
+
+///funcion para cargar un arreglo aleratoriamente
+int cargararreglorandom(int arr[],int validos)
+{
+    int num,val=0,i=0;
+    for(i; i<validos; i++)
+    {
+        num=random();
+        arr[i]=num;
+        val++;
+    }
+    return val;
+}
+
+///funcion para mostrar un arreglo
+void mostrararreglo(int arr[],int validos)
+{
+    for(int i=0; i<validos; i++)
+    {
+        printf("[%d]",arr[i]);
+    }
+}
+
+///funcion para sumar los elementos de un arreglo
+void sumaarreglo(int arr[],int validos)
+{
+    int suma=0;
+    for(int i=0; i<validos; i++)
+    {
+        suma+=arr[i];
+    }
+    printf("\nLa suma de los elementos es= %d",suma);
+}
+
+///funcion para contar los elementos de un arreglo
+void contarelementos(int arr[],int validos)
+{
+    int i=0;
+    while(i<validos)
+    {
+        i++;
+    }
+    printf("\ncantidad de elementos \t%d",i);
+}
+
+///funcion para pasar de pila a pila
+void pasardepilaapila(Pila origen,Pila *destino)
+{
+    while(!pilavacia(&origen))
+    {
+        apilar(destino,desapilar(&origen));
+    }
+}
+
+///funcion para pasar de pila a arreglo
+int pasajepila(int arr[],int val, Pila *p,int dim)
+{
+    while(!pilavacia(p)&& val<dim)
+    {
+        arr[val]=desapilar(p);
+        val++;
+    }
+    return val;
+}
+
+///funcion para pasar de arreglo a pila
+void pasaje(int arr[],int val, Pila *p)
+{
+    int i=0;
+    while(i<val)
+    {
+        apilar(p,arr[i]);
+        i++;
+    }
+}
+
+///funcion para intercambiar 2 ints con punteros
+void intercambio()
+{
+    int a=10,b=5;
+    int *p1=&b;
+    printf("\nel valor de a \t%d",*p1);
+}
+
+///funcion para buscar un nro en un arreglo
+int buscarelemento(int arr[], int val, int dato)
+{
+    int i=0;
+    int flag=0;
+    while(i<val && flag==0)
+    {
+        if(dato==arr[i])
+        {
+            flag=1;
+            printf("elemento encontrado %d\n",arr[i]);
+        }
+        else if(dato!=arr[i])
+        {
+            flag=1;
+            printf("elemento no encontrado\n");
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return flag;
+}
+
+///funcion para buscar el menor
+int buscarnmenor(int arr[],int pos,int val)
+{
+    int menor=arr[pos];
+    int posmenor=pos;
+    int index=pos+1;
+    while(index<val)
+    {
+        if(menor>arr[index])
+        {
+            menor=arr[index];
+            posmenor=index;
+        }
+        index++;
+    }
+    return menor;
+}
+
+///funcion para buscar el mayor
+int buscarmayor(int arr[],int pos,int val)
+{
+    int mayor=arr[pos];
+    int posmayor=pos;
+    int index=pos+1;
+    while(index<val)
+    {
+        if(mayor<arr[index])
+        {
+            mayor=arr[index];
+            posmayor=index;
+        }
+        index++;
+    }
+    return mayor;
+}
+
+///funcion para buscar un caracter
+int carcaracter(char arr[], int val, char dato)
+{
+    int i=0;
+    int flag=0;
+    while(i<val && flag==0)
+    {
+        if(dato==arr[i])
+        {
+            flag=1;
+            printf("caracter encontrado %c\n",arr[i]);
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return flag;
+}
+
+///funcion para buscar el menor un elemento en una pila
+int buscarmenorpila(Pila *dada)
+{
+    Pila aux;
+    int menor;
+    inicpila(&aux);
+    menor=desapilar(dada);
+    while(!pilavacia(dada))
+    {
+        if(menor>tope(dada))
+        {
+            apilar(&aux,menor);
+            menor=desapilar(dada);
+        }
+        else
+        {
+            apilar(&aux,desapilar(dada));
+        }
+    }
+    while(!pilavacia(&aux))
+    {
+        apilar(dada,desapilar(&aux));
+    }
+    return menor;
+}
+
+///funcion para buscar el mayor elemento en una pila
+int buscarmayorpila(Pila *dada)
+{
+    int mayor;
+    Pila aux;
+    inicpila(&aux);
+    mayor=desapilar(dada);
+    while(!pilavacia(dada))
+    {
+        if(mayor<tope(dada))
+        {
+            apilar(&aux,desapilar(dada));
+            mayor=desapilar(dada);
+        }
+        else
+        {
+            apilar(&aux,desapilar(dada));
+        }
+    }
+    while(!pilavacia(dada))
+    {
+        apilar(dada,desapilar(&aux));
+    }
+    return mayor;
+}
+
+///ordenacion por seleccion en pilas
+void ordenaseleccion(Pila *origen,Pila *destino)
+{
+    while(!pilavacia(origen))
+    {
+        apilar(destino,buscarmenorpila(origen));
+    }
+}
+
+///ordenamiento por insercion en pilas
+
+
+///buscar el menor en un arreglo
+int posicionmenor(int arr[],int pos,int val)
+{
+    int menor=arr[pos];
+    int posmenor=pos;
+    int index=pos+1;
+    while(index<val)
+    {
+        if(menor>arr[index])
+        {
+            menor=arr[index];
+            posmenor=index;
+        }
+        index++;
+    }
+    return menor;
+}
+
+///ordenamiento por seleccion en arreglos
+void ordenaseleccionn(int arr[],int val)
+{
+    int aux=0;
+    int posmenor=0;
+    int i=0;
+    while(i<val)
+    {
+        posmenor=posicionmenor(arr,i,val);
+        aux=arr[posmenor];
+        arr[posmenor]=arr[i];
+        arr[i]=aux;
+        i++;
+    }
+}
+
+///insertar ordenado
+void insertar(int arr[],int u, int dato)
+{
+    int i=u;
+    while(i>=0 && dato<arr[i])
+    {
+        arr[i+1]=arr[i];
+        i--;
+    }
+    arr[i+1]=dato;
+}
+
+///ordenamiento por insercion
+void ordenainsercion(int arr[],int c)
+{
+    int u=0;
+    while(u<c-1)
+    {
+        insertar(arr,u,arr[u+1]);
+        u++;
+    }
+}
+
+///Funcion para cargar matriz
+int cargarmatriz(int mat[100][100],int f, int c)
+{
+    int num,val=0;
+    for(int i=0; i<f; i++)
+    {
+        for(int j=0; j<c; j++)
+        {
+            printf("ingrese un nro\n");
+            fflush(stdin);
+            scanf("%i",&num);
+            mat[i][j]=num;
+        }
+    }
+    return val;
+}
+
+///Funcion para mostrar matriz
+void mostrarmatriz(int mat[100][100],int f, int c)
+{
+    for(int i=0; i<f; i++)
+    {
+        printf("\n");
+        for(int j=0; j<c; j++)
+        {
+            printf("[%d]",mat[i][j]);
+        }
+    }
+}
+
+///Sumar el contenido de una matriz y mostrarlo
+void sumamatriz(int mat[100][100],int f,int c)
+{
+    int suma=0;
+    for(int i=0; i<f; i++)
+    {
+        for(int j=0; j<c; j++)
+        {
+            suma+=mat[i][j];
+        }
+    }
+    printf("\nLa suma del arreglo es %d",suma);
+}
+
+///Calcular el promedio de una matriz
+void prom(int mat[100][100],int f,int c)
+{
+    int promedio=0,val=0;
+    for(int i=0; i<f; i++)
+    {
+        for(int j=0; j<c; j++)
+        {
+            promedio+=mat[i][j];
+            val++;
+        }
+    }
+    promedio=(float)promedio/val;
+    printf("\n cantidad de elementos %d",val);
+    printf("\n El promedio es %d",promedio);
+}
+
+///Buscar un elemento en especifico dentro de una matriz
+int buscarelementomatriz(int mat[100][100],int val,int dato)
+{
+    int i=0,j=0;
+    int flag=0;
+    while(i<val && j<val && flag==0)
+    {
+        if(dato==mat[i][j])
+        {
+            flag=1;
+            printf("caracter encontrado %d",mat[i][j]);
+        }
+        else
+        {
+            i++;
+            j++;
+        }
+    }
+    return flag;
+}
+
+///Funcion para cargar una estructura
+int cargarestructura(stAlumno arr[],int dim)
+{
+    int val=0;
+    for(int i=0; i<dim; i++)
+    {
+        printf("\ningrese la matricula del alumno/a\t");
+        fflush(stdin);
+        scanf("%d",&arr[i].matricula);
+        printf("\ningrese el nombre del alumno/a\t");
+        fflush(stdin);
+        scanf("%s",&arr[i].nombre);
+        printf("\ningrese el genero del alumno/a //m, f, o\t");
+        fflush(stdin);
+        scanf("%c",&arr[i].genero);
+        val++;
+    }
+    return val;
+}
+
+///Funcion para mostrar estructura
+void mostrarestructura(stAlumno arr[],int val)
+{
+    int i=0;
+    while(i<val)
+    {
+        printf("\nMatricula:%d",arr[i].matricula);
+        printf("\nNombre: %s",arr[i].nombre);
+        printf("\nGenero: %c",arr[i].genero);
+        i++;
+    }
+}
+
+///funcion auxiliar para buscar
+int buscaralumno(stAlumno A[], int cant, int matricula)
+{
+    int flag=0;
+    int i=0;
+    while(i<cant && flag==0)
+    {
+        if(matricula==A[i].matricula)
+        {
+            flag=1;
+        }
+        i++;
+    }
+    return flag;
+}
+
+///funcion principal de busqueda
+void busqueda(stAlumno arr[],int cant)
+{
+    char control='s';
+    int matricula=0,i=0,pos=-1;
+    do
+    {
+        printf("ingrese la matricula que busca\n");
+        fflush(stdin);
+        scanf("%d",&matricula);
+        int flag=buscaralumno(arr,cant,matricula);
+        if(flag==1)
+        {
+            while(i<cant && pos==-1)
+            {
+                if(arr[i].matricula==matricula)
+                {
+                    pos=i;
+                }
+                i++;
+            }
+            printf("\nDatos del alumno\n");
+            printf("\nMatricula:%d",arr[pos].matricula);
+            printf("\nNombre: %s",arr[pos].nombre);
+            printf("\nGenero: %c",arr[pos].genero);
+        }
+        else
+        {
+            printf("La matricula que ingreso no pertenece a ningun alumno\n");
+        }
+        printf("\ndesea buscar otro alumno s/n\n");
+        fflush(stdin);
+        scanf("%c",&control);
+        if(control=='n')
+        {
+            printf("\nQue tengas un buen dia\n");
+        }
+    }
+    while(control=='s');
+}
+
+///Ordenamiento por seleccion en estructuras: Busqueda del menor
+int buscarmenor(stAlumno arr[],int pos,int val)
+{
+    int i=pos+1;
+    int posmenor=pos;
+    int menor=arr[pos].matricula;
+    while(i<val)
+    {
+        if(menor>arr[i].matricula)
+        {
+            menor=arr[i].matricula;
+            posmenor=i;
+        }
+        i++;
+    }
+    return posmenor;
+}
+
+///Ordenamiento por seleccion
+void ordenaseleccionn2(stAlumno arr[],int val)
+{
+    stAlumno aux;
+    int posmenor;
+    int i=0;
+    while(i<val)
+    {
+        posmenor=buscarmenor(arr,i,val);
+        aux=arr[posmenor];
+        arr[posmenor]=arr[i];
+        arr[i]=aux;
+        i++;
+    }
+}
+
+///insertar dato en estructuras
+void insertaRegistroOrdenado(stAlumno A[], int val, stAlumno N)
+{
+    int i=val;
+    while(i>=0 && A[i].matricula>N.matricula)
+    {
+        A[i+1]=A[i];
+        i--;
+    }
+    A[i+1]=N;
+}
+
+
+///ordenacion por insercion en estructuras
+void ordenainsercion2(stAlumno arr[], int val)
+{
+    int u=0;
+    while(u<val-1)
+    {
+        insertaRegistroOrdenado(arr,u,arr[u+1]);
+        u++;
+    }
+}
+
+
+///Funcion de Muestra por genero
+void mostrargeneros(stAlumno A[], int cant)
+{
+    int i=0;
+    while(i<cant)
+    {
+        if (A[i].genero=='m')
+        {
+            puts("--------------------------");
+            printf("\nGenero masculino\n");
+            printf("Matricula: %d\n", A[i].matricula);
+            printf("   Nombre: %s\n", A[i].nombre);
+            puts("--------------------------");
+        }
+        else if(A[i].genero=='f')
+        {
+            puts("--------------------------");
+            printf("\nGenero masculino\n");
+            printf("Matricula: %d\n", A[i].matricula);
+            printf("   Nombre: %s\n", A[i].nombre);
+            puts("--------------------------");
+        }
+        else if(A[i].genero=='o')
+        {
+            puts("--------------------------");
+            printf("\nGenero masculino\n");
+            printf("Matricula: %d\n", A[i].matricula);
+            printf("   Nombre: %s\n", A[i].nombre);
+            puts("--------------------------");
+        }
+        i++;
+    }
+}
+
+///Contador de estudiantes especificos
+void cuentas(stAlumno arr[], int val)
+{
+    int i=0;
+    int m=0;
+    int f=0;
+    int o=0;
+    while(i<val)
+    {
+        if(arr[i].genero=='m')
+        {
+            m++;
+        }
+        else if(arr[i].genero=='f')
+        {
+            f++;
+        }
+        else if(arr[i].genero=='o')
+        {
+            o++;
+        }
+        i++;
+    }
+    printf("Cantidad de alumnos masculinos %d\t",m);
+    printf("Cantidad de alumnos femeninos %d\t",f);
+    printf("Cantidad de alumnos neutros %d\t",o);
+}
+
+
+///Funcion para recibir como parámetro un arreglo de tipo alumno y lo copiarlo al archivo.
+void cargaAlumnosConArreglo(char archivo[], stAlumno arregloAlumnos[], int cant)
+{
+    FILE *archi;
+    int i=0;
+    archi=fopen(archivo,"ab");
+    if(archi!=NULL)
+    {
+        i=fwrite(arregloAlumnos,sizeof(stAlumno),cant,archi);
+        fclose(archi);
+        printf("Cantidad de registros grabados: %d",i);
+    }
+}
+
+///Funcion mostrar estructura
+void mostrarAlumno(stAlumno a)
+{
+    puts("\n---------------------------------------");
+    printf("\nNombre y Apellido: %s\t",a.nombre);
+    printf("\nGenero: %c\t",a.genero);
+    printf("\nMatricula: %d\t",a.matricula);
+    puts("\n---------------------------------------");
+}
+
+
+///Funcion para mostrar archivos
+void muestraAlumnos(char nombre_archivo[])
+{
+    FILE *archi;
+    stAlumno a;
+    archi=fopen(nombre_archivo, "rb");
+    int i=0;
+    if (archi!=NULL)
+    {
+        while(!feof(archi))
+        {
+            fread(&a,sizeof(stAlumno),1,archi);
+            if(!feof(archi))
+            {
+                printf("\nRegistro numero %d",i++);
+                mostrarAlumno(a);
+            }
+        }
+        fclose(archi);
+    }
+}
+
+///Mostrar de un genero en especifico: m por ejemplo
+void mostrarespecifico(char nombre_archivo[])
+{
+    FILE * archi;
+    stAlumno a;
+    archi=fopen(nombre_archivo, "rb");
+    int rta=0;
+    if(archi!=NULL)
+    {
+        while(!feof(archi))
+        {
+            fread(&a,sizeof(stAlumno),1,archi);
+            if(!feof(archi))
+            {
+                if((a.genero=='m'))
+                {
+                    mostrarAlumno(a);
+                }
+            }
+        }
+        fclose(archi);
+    }
+    return rta;
+}
+
+///Pasar a una pila los nros de matricula
+void pasardearchivoapilas(char nombre_archivo[], Pila * p)
+{
+    FILE * archi;
+    stAlumno a;
+    archi=fopen(nombre_archivo, "rb");
+    if(archi!=NULL)
+    {
+        while(!feof(archi))
+        {
+            fread(&a,sizeof(stAlumno),1,archi);
+            if(!feof(archi))
+            {
+                if(a.matricula>0)
+                    apilar(p,a.matricula);
+            }
+        }
+        fclose(archi);
+    }
+}
+
+///Funcion para invertir un archivo
+void inversionararchivo(char nombre_archivo[])
+{
+    stAlumno alu_principio;
+    stAlumno alu_final;
+    int inicio=0;
+    int fin=0;
+    int cantidad=0;
+    FILE * archi;
+    archi=fopen(nombre_archivo, "r+b");
+    if(archi!=NULL)
+    {
+        fseek(archi, 0, SEEK_END);
+        cantidad=ftell(archi)/sizeof(stAlumno);
+        fin=cantidad-1;
+        while(inicio<fin)
+        {
+            // vamos al ppio y leemos
+            fseek(archi, inicio*sizeof(stAlumno),SEEK_SET);
+            fread(&alu_principio, sizeof(stAlumno), 1, archi);
+
+            // vamos al final y leemos
+            fseek(archi, fin*sizeof(stAlumno), SEEK_SET);
+            fread(&alu_final, sizeof(stAlumno), 1, archi);
+
+            // vamos al ppio y escribimos
+            fseek(archi, inicio*sizeof(stAlumno),SEEK_SET);
+            fwrite(&alu_final, sizeof(stAlumno), 1, archi);
+
+            // vamos al final y escribimos
+            fseek(archi, fin*sizeof(stAlumno), SEEK_SET);
+            fwrite(&alu_principio, sizeof(stAlumno), 1, archi);
+
+            inicio++;
+            fin--;
+        }
+        fclose(archi);
+    }
+}
